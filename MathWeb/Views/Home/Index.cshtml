@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model  IQueryable<TaskMath>
+@if (Context.User.Identity.IsAuthenticated)
+{
+    <h1>It's time to <a asp-area="" asp-controller="RecordTask" asp-action="Create">make a new post!</a></h1>
+}
+else
+{
+    <h1>You need to be <a asp-area="" asp-controller="Home" asp-action="Login">Logged in</a> to make a new post!</h1>
+}
+<h2>Tasks</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>Short description</th>
+        <th>Owner</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+         <tr>
+         <td>@item.ShortDesc</td>
+         <td>@item.WhoMade</td>
+         </tr>
+    }
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
