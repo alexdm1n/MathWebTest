@@ -1,0 +1,46 @@
+﻿@using MathWeb.Data;
+@{
+    ViewData["Title"] = "Task page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model MathWeb.Models.TaskMath
+
+
+<h1>@Model.ShortDesc</h1>
+
+<div style="max-width: 1200px; margin:0 auto; padding:10px;">
+    <div class="container-fluid">
+        <div class="row" style="margin-top:20px;">
+            <div class="col-xl-6">
+                @Model.NameOfTask
+            </div>
+        </div>
+    </div>
+</div>
+@if (Context.User.Identity.IsAuthenticated)
+{
+<h2>Here you can check your answer!</h2>
+<form method="post" enctype="multipart/form-data" asp-action="Details">
+    <div class="form-group">
+        <label class="control-label"></label>
+        <input type="text" name="answer" style="height:40px"/>
+        <input type="submit" style="height:40px; margin-top:-6px" class="btn btn-primary" value="Submit" />
+    </div>
+</form>
+@if (ViewBag.Message == "Your answer is correct!")
+{
+<p class="text-success">@ViewBag.Message</p>
+}
+else
+{
+<p class="text-danger">@ViewBag.Message</p>
+}
+}
+@if (!Context.User.Identity.IsAuthenticated)
+{<h2>You need to be <a asp-area="" class="btn btn-outline-primary" style="width:200px" asp-controller="Home" asp-action="Login">Logged in</a> to check your answer!</h2>}
+
+<div>
+    <a asp-area="" asp-controller="Home" asp-action="Index">Back to Home</a>
+</div>
+
+

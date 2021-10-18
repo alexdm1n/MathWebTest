@@ -14,28 +14,45 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using MathWeb.Controllers;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace MathWeb.Controllers
 {
     public class HomeController : Controller
     {
-        
+
+      
         private readonly ILogger<HomeController> _logger;
-        private readonly TaskMath tasksToTable;
-        public HomeController(ILogger<HomeController> logger, TaskMath tasksToTable)
+        private readonly TasksToTable tasksToTable;
+        public HomeController(ILogger<HomeController> logger, TasksToTable tasksToTable)
         {
             _logger = logger;
             this.tasksToTable = tasksToTable;
-
-
         }
-        public IActionResult Index()
+        public IActionResult Index(string SearchString, string FilterString)
         {
             var model = tasksToTable.GetTasks();
+            if(!String.IsNullOrEmpty(FilterString))
+            {
+                model = model.Where(s => s.Topic.Contains(FilterString));
+            }
+            if(!String.IsNullOrEmpty(SearchString))
+            {
+                model = model.Where(s => s.NameOfTask.Contains(SearchString));
+            }
+            return View(model);
+           
+        }
+        public IActionResult MyAccount(string name)
+        {
+            var model = tasksToTable.GetByOwner(name);
+
+            if (!String.IsNullOrEmpty(name))
+            {
+                model = model.Where(s => s.WhoMade == name);
+            }
             return View(model);
         }
-
         public IActionResult About()
         {
             ViewData["Message"] = "Description page.";
@@ -49,6 +66,7 @@ namespace MathWeb.Controllers
 
             return View();
         }
+       
         public IActionResult Privacy()
         {
             return View();

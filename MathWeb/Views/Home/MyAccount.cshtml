@@ -1,39 +1,16 @@
 ﻿@using MathWeb.Data;
-@{
-    ViewData["Title"] = "Home Page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 @model IQueryable<TaskMath>
-@if (Context.User.Identity.IsAuthenticated)
-{
-    <h1>It's time to <a asp-area="" class="btn btn-outline-primary" style="width:250px" asp-controller="RecordTask" asp-action="Create">make a new post!</a></h1>
-}
-else
-{
-    <h1>You need to be <a asp-area="" class="btn btn-outline-primary" style="width:200px" asp-controller="Home" asp-action="Login">Logged in</a> to make a new post!</h1>
-}
-<h2>Tasks</h2>
-@using (Html.BeginForm())
-{
-<p class="font-weight-bold">
-    Find task by key word : @Html.TextBox("SearchString")
-    <input type="submit" id="Topics" value="Search" class="btn-outline-info" style="border-radius:5px" />
-</p>
-}
-@using (Html.BeginForm())
-{
-    <p class="font-weight-bold">
-        Topic : @Html.TextBox("FilterString")
-        <input type="submit" value="Search" class="btn-outline-info" style="border-radius:5px" />
-    </p>
-}
+
+<h1>Your nickname : @User.Identity.Name</h1>
+<h2>Social network: @User.Identity.AuthenticationType</h2>
+<h3>My tasks</h3>
+
 <table class="table table-bordered text-center">
     <thead class="thead-dark">
 
         <tr>
             <th>Short description</th>
             <th>Topic</th>
-            <th>Owner</th>
             <th></th>
         </tr>
     </thead>
@@ -42,7 +19,6 @@ else
         <tr>
             <td>@item.ShortDesc</td>
             <td>@item.Topic</td>
-            <td>@item.WhoMade</td>
             <td>
                 <ul class="list-inline m-0">
                     <a asp-area="" class="btn btn-info" style="height:37px" asp-controller="Task" asp-action="Details" asp-route-id="@item.UserId">Details</a>
@@ -57,31 +33,3 @@ else
     }
 
 </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

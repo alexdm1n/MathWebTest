@@ -88,7 +88,7 @@ namespace MathWeb
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=RecordTask}/{action=Create}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

@@ -1,24 +1,27 @@
 ﻿@model MathWeb.Models.TaskMath
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Create</h1>
+<h1>Edit @Model.ShortDesc</h1>
 
-<h4>TaskMath</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger" ></div>
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="UserId" />
+
             <div class="form-group">
-                <label asp-for="NameOfTask" class="control-label">Task description</label>
+                <label asp-for="NameOfTask" class="control-label"></label>
                 <textarea asp-for="NameOfTask" class="form-control" style="width:450px; height:350px"></textarea>
-                <span asp-validation-for="NameOfTask" class="input-group-text"></span>
+                <span asp-validation-for="NameOfTask" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ShortDesc" class="control-label">Short description</label>
+                <label asp-for="ShortDesc" class="control-label"></label>
                 <input asp-for="ShortDesc" class="form-control" />
                 <span asp-validation-for="ShortDesc" class="text-danger"></span>
             </div>
@@ -29,8 +32,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Topic" class="control-label">Topic</label>
-                <input asp-for="Topic" class="form-control" list="Topics" />
-                <datalist id="Topics">
+                <input asp-for="Topic" class="form-control" list="Users" />
+                <datalist id="Users">
                     <option value="Algebra" />
                     <option value="Geometry" />
                     <option value="Trigonometry" />
@@ -46,7 +49,7 @@
                 <span asp-validation-for="WhoMade" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save changes" style="width:auto" class="btn btn-primary" />
             </div>
             @ViewBag.message
         </form>

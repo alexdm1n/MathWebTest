@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MathWeb.Data
 {
-    public class TaskToTable
+    public class TasksToTable
     {
         private readonly ConnectionStringClass context;
 
-        public TaskToTable(ConnectionStringClass context)
+        public TasksToTable(ConnectionStringClass context)
         {
             this.context = context;
         }
@@ -21,10 +21,15 @@ namespace MathWeb.Data
         {
             return context.Tasks.Single(x => x.UserId == Id);
         }
+        public IQueryable<TaskMath> GetByOwner(string name)
+        {
+            return context.Tasks.OrderBy(x => x.WhoMade == name);
+        }
         public IQueryable<TaskMath> GetTasks()   //getall
         {
-            return context.Tasks.OrderBy(x => x.NameOfTask);
+            return context.Tasks.OrderBy(x => x.Topic);
         }
+      
         public Guid SaveArticle(TaskMath entity)  //edit
         {
             if (entity.UserId == default)
